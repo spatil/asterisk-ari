@@ -49,11 +49,11 @@ module Ari
         %w{ open message error close }.each { |e| @ws.remove_listener(e) }
         @ws.close
       end
-      @ws = WebSocket::Client::Simple.connect ws_url
-      @ws.on :open,    &method(:handle_websocket_open)
-      @ws.on :message, &method(:handle_websocket_message)
-      @ws.on :error,   &method(:handle_websocket_error)
-      @ws.on :close,   &method(:handle_websocket_close)
+      @ws = WebSocket::EventMachine::Simple.connect ws_url
+      @ws.on :onopen,    &method(:handle_websocket_open)
+      @ws.on :onmessage, &method(:handle_websocket_message)
+      @ws.on :onerror,   &method(:handle_websocket_error)
+      @ws.on :onclose,   &method(:handle_websocket_close)
     end
 
     private
